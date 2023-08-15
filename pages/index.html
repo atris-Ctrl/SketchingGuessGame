@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href=".">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chick Fashion✨</title>
+    <link rel="icon" href="../styles/chicken_star.png" type="styles/x-icon">
+    <link rel="shortcut icon" href="../styles/chicken_star.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="../styles/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://kit.fontawesome.com/e89f1688e3.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  
+    <div class="tabs">
+        <a href="index.html" class="tab" id = "title" tab="title">Chick Fashion</a>
+
+        <a href="about.html" class="tab right-tab">About</a>
+    </div>
+
+    <div id="intro" class="">
+        <div class="intro-content">
+          <span class="close-btn" id="closeBtn">&times;</span>
+          <p>Introduction: Welcome to our game! 
+            This is a fun and challenging game where you 
+            have to guess the sketches created by our AI. Enjoy!</p>
+            <img id="" src="../styles/chickenbun-big.gif" alt="">
+            <br>
+
+            <button>Next</button>
+        </div>
+      </div>
+
+    <div class="header-container">
+        <h1 class="title">Interview with Chicken Bun!</h1>
+        <p id="draw-text">Draw <span id="item-text"></span></p>
+        <p> <span id = "item-num">1</span>/ 5 tests</p>
+        <p id = "timer">Time Left : <span id = "countdown"> </span></p>
+    </div>
+    <div id="canvas-container">
+    <img src="../styles/frame.png" class="frame" alt="">
+    <div id="penSize"></div>
+
+    <canvas id="sketchCanvas" width="400" height="400">
+    </canvas>
+    </div>
+
+    <div class="tools">
+     <div class="tool"> 
+        <img id= "eraser" src="../styles/eraser.png" alt="">
+        <div class="size-container">
+            <input type="range" min="5" max="30" value="5" id="size-slider">
+        </div> 
+        </div> 
+        <div class="tool"> <img  id= "pen" src="../styles/pen.png" alt=""></div>
+        <div class="tool"> <img id= "palete" src="../styles/palette.png" alt=""></div>
+        <button id="clearBtn">Clear</button>
+
+    </div>
+    <img src="../styles/table.png" id="table" alt="">
+    <br>
+
+   
+
+    <button id="submitBtn">Submit</button>
+
+    <div id="guessResult"></div>
+
+    <div class="game-dialogue">
+        <div id="dialogue-box">
+            <p id="dialogue">Hello World!</p>
+            <div class="triangle">
+            </div>
+        </div>
+        <img id="chicken" src="../styles/chickenbun-big.gif" alt="">
+    </div>
+    
+   
+
+</body>
+
+<footer>
+    Make with love <img src="../styles/chicken_heart.png"></img>
+    <div class="contact-icons">
+         <a href="https://www.linkedin.com/in/your-linkedin-profile/" target="_blank">
+            <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+        <a href="https://github.com/atris-Ctrl" target="_blank">
+            <i class="fa-brands fa-github"></i>
+                </a>
+    </div>
+    <div class="current-year" id="currentYear"></div>
+</footer> 
+
+
+<script type="module" src="../scripts/canvas.js"></script>
+<script type ="module" src="../scripts/dialogue.js"></script>
+<script type ="module" src="../scripts/footer.js"></script>
+<script type ="module" src="../scripts/intro.js"></script>
+<script type="module" src="../scripts/ai.js"></script>
+<script type="module" src="../scripts/timer.js"></script>
+
+</html>
