@@ -2,47 +2,60 @@ const timerElement = document.getElementById('countdown');
 const drawTextElement = document.getElementById('item-text');
 const drawNumElement = document.getElementById('item-num');
 
+import data from "bundle-text:../scripts/classes.txt" // works!
+
 let timeLeft = 5; 
 let textNum = 1;
 var items = [];
-function loadTxtFile(){
-    let arr = [];
-    fetch("../scripts/classes.txt")
-        .then(response => response.text())
-        .then(data => {
-            const lines = data.replace(/\r/g, '').split('\n');
-            items = lines.filter(line => line.trim('') !== '');
-            console.log(items); 
-            return items;
-        })
-        .catch(error => {
-            console.error('Error loading the file:', error);
-  });
-  return arr;
-}   
+var itemID = -1;
+var guessedNum = 1;
+
+// load txt file 
+const lines = data.split("\n");
+for (const line of lines) {
+    items.push(line);
+}
+
+function getRandomItem(){
+    itemID = Math.floor(Math.random()*items.length);
+    var item = items[itemID];
+    return item;
+}
 
 
 function startTimer() {
     const intervalId = setInterval(() => {
     if (timeLeft > 0) {
-        timeLeft--;
         timerElement.textContent = timeLeft + ' seconds';
+        timeLeft--;
     } else {
-        clearInterval(intervalId);
-        timerElement.textContent = 'Time\'s up!';
+        if(guessedNum < 5){
+            timeLeft = 5;
+            guessedNum++;
+            var itemToDraw = getRandomItem();
+            setTextItem(itemToDraw);
+            setItemNumText(guessedNum);
+        }
+        else{
+            clearInterval(intervalId);
+            timerElement.textContent = 'Time\'s up!';
+        }
     }
     }, 1000);
 }
 
 
-function getTextItem(){
-    drawTextElement.textContent = "Chicken";
+function setTextItem(name){
+    drawTextElement.textContent = name + " !";
 }
 
-function setItemNumText(){
-    drawNumElement.textContent = 1;
+function setItemNumText(num){
+    drawNumElement.textContent = num;
 }
+
+
 startTimer();
-getTextItem();
-const drawArray = loadTxtFile();
-console.log(items[0]);
+var itemToDraw = getRandomItem();
+setTextItem(itemToDraw);
+
+

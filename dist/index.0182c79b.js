@@ -574,45 +574,54 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"iyReQ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _classesTxt = require("bundle-text:../scripts/classes.txt"); // works!
+var _classesTxtDefault = parcelHelpers.interopDefault(_classesTxt);
 const timerElement = document.getElementById("countdown");
 const drawTextElement = document.getElementById("item-text");
 const drawNumElement = document.getElementById("item-num");
 let timeLeft = 5;
 let textNum = 1;
 var items = [];
-function loadTxtFile() {
-    let arr = [];
-    fetch("../scripts/classes.txt").then((response)=>response.text()).then((data)=>{
-        const lines = data.replace(/\r/g, "").split("\n");
-        items = lines.filter((line)=>line.trim("") !== "");
-        console.log(items);
-        return items;
-    }).catch((error)=>{
-        console.error("Error loading the file:", error);
-    });
-    return arr;
+var itemID = -1;
+var guessedNum = 1;
+// load txt file 
+const lines = (0, _classesTxtDefault.default).split("\n");
+for (const line of lines)items.push(line);
+function getRandomItem() {
+    itemID = Math.floor(Math.random() * items.length);
+    var item = items[itemID];
+    return item;
 }
 function startTimer() {
     const intervalId = setInterval(()=>{
         if (timeLeft > 0) {
-            timeLeft--;
             timerElement.textContent = timeLeft + " seconds";
+            timeLeft--;
+        } else if (guessedNum < 5) {
+            timeLeft = 5;
+            guessedNum++;
+            var itemToDraw = getRandomItem();
+            setTextItem(itemToDraw);
+            setItemNumText(guessedNum);
         } else {
             clearInterval(intervalId);
             timerElement.textContent = "Time's up!";
         }
     }, 1000);
 }
-function getTextItem() {
-    drawTextElement.textContent = "Chicken";
+function setTextItem(name) {
+    drawTextElement.textContent = name + " !";
 }
-function setItemNumText() {
-    drawNumElement.textContent = 1;
+function setItemNumText(num) {
+    drawNumElement.textContent = num;
 }
 startTimer();
-getTextItem();
-const drawArray = loadTxtFile();
-console.log(items[0]);
+var itemToDraw = getRandomItem();
+setTextItem(itemToDraw);
+
+},{"bundle-text:../scripts/classes.txt":"fNKGP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fNKGP":[function(require,module,exports) {
+module.exports = "angel\r\nbandage\r\nbelt\r\nbracelet\r\ncat\r\nchandelier\r\ncrown\r\ndiamond\r\ndresser\r\neyeglasses\r\nfan\r\nfeather\r\npurse\r\nhat\r\njacket\r\nlipstick\r\nnecklace\r\nshoe\r\nbowtie\r\nflip flops\r\nnail\r\nunderwear\r\nt-shirt\r\nvase\r\napple";
 
 },{}]},["da4KP","iyReQ"], "iyReQ", "parcelRequirec3ae")
 

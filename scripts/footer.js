@@ -76,14 +76,6 @@ function drawSketch(x, y) {
     updatePenSizeIndicator(offsetX, offsetY ,ctx.lineWidth);
 }
 
-submitBtn.addEventListener('click', () => {
-    const dpi = window.devicePixelRatio;
-    console.log("fnkank")
-    // const imgData = canvas.getImageData(mbb.min.x * dpi, mbb.min.y * dpi,
-						    //    (mbb.max.x - mbb.min.x) * dpi, (mbb.max.y - mbb.min.y) * dpi);
-    // console.log(imageData);
-    sendToAIService(imageData);
-});
 
 eraserBtn.addEventListener('click',() => {
     mode = "eraser";
@@ -114,11 +106,17 @@ function updatePenSizeIndicator(x,y,size){
     penSizeIndicator.style.display = 'block'
 }
 
+submitBtn.addEventListener('click', () => {
+    const dpi = window.devicePixelRatio;
+    const imgData = canvas.getImageData(mbb.min.x * dpi, mbb.min.y * dpi,
+						       (mbb.max.x - mbb.min.x) * dpi, (mbb.max.y - mbb.min.y) * dpi);
+    console.log(imgData);
+    sendToAIService(imgData);
+});
 
-// ai 
+// ai 400 x 400 canvas 
 function sendToAIService(imageData) {
-    hello();
-    displayGuess("Cat");
+
 
 }
 

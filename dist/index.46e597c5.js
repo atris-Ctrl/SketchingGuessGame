@@ -642,14 +642,6 @@ function drawSketch(x, y) {
     const offsetY = y + canvasContainer.getBoundingClientRect().top;
     updatePenSizeIndicator(offsetX, offsetY, ctx.lineWidth);
 }
-submitBtn.addEventListener("click", ()=>{
-    const dpi = window.devicePixelRatio;
-    console.log("fnkank");
-    // const imgData = canvas.getImageData(mbb.min.x * dpi, mbb.min.y * dpi,
-    //    (mbb.max.x - mbb.min.x) * dpi, (mbb.max.y - mbb.min.y) * dpi);
-    // console.log(imageData);
-    sendToAIService(imageData);
-});
 eraserBtn.addEventListener("click", ()=>{
     mode = "eraser";
 });
@@ -673,11 +665,14 @@ function updatePenSizeIndicator(x, y, size) {
     penSizeIndicator.style.top = `${y + size * 2} px`;
     penSizeIndicator.style.display = "block";
 }
-// ai 
-function sendToAIService(imageData1) {
-    hello();
-    displayGuess("Cat");
-}
+submitBtn.addEventListener("click", ()=>{
+    const dpi = window.devicePixelRatio;
+    const imgData = canvas.getImageData(mbb.min.x * dpi, mbb.min.y * dpi, (mbb.max.x - mbb.min.x) * dpi, (mbb.max.y - mbb.min.y) * dpi);
+    console.log(imgData);
+    sendToAIService(imgData);
+});
+// ai 400 x 400 canvas 
+function sendToAIService(imageData) {}
 function displayGuess(guess) {
     guessResult.textContent = `AI Guess: ${guess}`;
 }

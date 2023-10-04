@@ -20,11 +20,9 @@ return tf.tidy(()=>{
     return batched
 })
 }
-function hello(){
-    console.log("fjjj")
-}
+
 function predictImg(item, imgData){
-    const res = model.predic(imgData)
+    const res = model.predic(imgData);
 }
 
 const model = loadModel();

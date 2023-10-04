@@ -32,8 +32,7 @@ button {
 }
 
 .intro-content {
-  background-color: #fefefe;
-  border: 1px solid #fbf9f9;
+  background-color: #db9262;
   border-radius: 2%;
   padding: 20px;
   display: inline-block;
@@ -41,7 +40,7 @@ button {
 }
 
 .close-btn {
-  color: #e60e0e;
+  color: #521414;
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -102,10 +101,11 @@ button {
 .tool {
   margin: 0;
   padding: 0 3% 0 0;
+  animation: 1s infinite bounce;
 }
 
 .tool:hover {
-  animation: .5s infinite bounce;
+  animation-play-state: paused;
 }
 
 #eraser {

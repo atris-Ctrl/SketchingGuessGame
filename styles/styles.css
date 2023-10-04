@@ -36,19 +36,19 @@ button{
 .intro-content {
     display: inline-block;
     border-radius: 2%;
-    background-color: #fefefe;
+    background-color: #db9262;
     padding: 20px;
-    border: 1px solid hsl(0, 20%, 98%);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
   
   .close-btn {
-    color: #e60e0e;
+    color: #521414;
     float: right;
     font-size: 28px;
     font-weight: bold;
   }
+  
   
   .close-btn:hover,
   .close-btn:focus {
@@ -106,12 +106,12 @@ button{
     padding:0;
     padding-right: 3%;
     margin: 0;
+    animation: bounce 1s infinite;
 
 }
-.tool:hover{
-    animation: bounce 0.5s infinite;
+.tool:hover {
+    animation-play-state: paused;
 }
-
 
 #eraser{
     margin-top: 7px;

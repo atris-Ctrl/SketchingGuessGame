@@ -9,7 +9,7 @@ let textsInd = 0;
 dialogueBox.addEventListener("mousedown",()=>{
     textsInd++;
     textInd = 0;
-    text = texts[textsInd]
+    text = texts[textsInd];
     typingEffect();
 })
 
