@@ -6,11 +6,46 @@ html,body
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23f68937' fill-opacity='0.5'%3E%3Cpath fill-rule='evenodd' d='M0 0h40v40H0V0zm40 40h40v40H40V40zm0-40h2l-2 2V0zm0 4l4-4h2l-6 6V4zm0 4l8-8h2L40 10V8zm0 4L52 0h2L40 14v-2zm0 4L56 0h2L40 18v-2zm0 4L60 0h2L40 22v-2zm0 4L64 0h2L40 26v-2zm0 4L68 0h2L40 30v-2zm0 4L72 0h2L40 34v-2zm0 4L76 0h2L40 38v-2zm0 4L80 0v2L42 40h-2zm4 0L80 4v2L46 40h-2zm4 0L80 8v2L50 40h-2zm4 0l28-28v2L54 40h-2zm4 0l24-24v2L58 40h-2zm4 0l20-20v2L62 40h-2zm4 0l16-16v2L66 40h-2zm4 0l12-12v2L70 40h-2zm4 0l8-8v2l-6 6h-2zm4 0l4-4v2l-2 2h-2z'/%3E%3C/g%3E%3C/svg%3E");    text-align: center;
     background-image: url("data:image/svg+xml,%3Csvg width='40' height='1' viewBox='0 0 40 1' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20v1H0z' fill='%23e55f13' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
     margin: 0;
-    padding: 0%;
+    padding: 0;
+}
+
+#banner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: translateY(-100%);
+    background-color: #dfc47c; /* Change this to your desired background color */
+    transition: transform 1s ease-in-out; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 5;
+
+}
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Slide down to original position */
+    }
+}
+.content{
+    animation: fadeIn 1s forwards;
+    font-family: "Pixely";
+    font-size: larger;
+    /* padding: 20%; */
+}
+#hideButton {
+    margin-top: 10px;
+    background-color: #e74c3c; /* Change this to your desired button color */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
 }
 
 button{
-    font-family: "Material";
+    font-family: "Wigglye";
 
 }
 
@@ -73,15 +108,15 @@ button{
 
 .frame {
     position: absolute;
-    top: -45px;
-    left: -35px;
+    top: -42px;
+    left: -33px;
     height: 112%;
     z-index: 1;
     pointer-events: none; /* Allows clicking through the frame */
 }
 #sketchCanvas{
     background-color:aliceblue;
-    /* cursor: none; */
+    cursor: none;
     position: relative;
 }
 
@@ -127,7 +162,10 @@ button{
 }
 
 
-
+#game-dialogue{
+    display: none;
+    animation: fadeIn 1s forward;
+}
 
 .size-container{
     position: absolute;
@@ -169,10 +207,15 @@ button{
     src: url(../fonts/dogicabold.ttf) format('truetype');
 }
 
+
+@font-face {
+    font-family: 'Wigglye';
+    src: url(../fonts/Wigglye.ttf) format('truetype');
+}
+
 footer {
     display: flex;
     justify-content: space-between;
-    /* align-items: center; */
     font-family: "Pixely";
     background-color: #f1b78d;
     padding: 10px;
@@ -184,7 +227,7 @@ footer {
     background-repeat: repeat-x; /* Repeat only along the x-axis */
     background-size: contain; 
     display: flex;
-    height: 100px;    
+    height: 100px;  
 }
 
 .tab {
@@ -195,6 +238,7 @@ footer {
     color: rgb(238, 218, 73);
     border-bottom: 2px solid transparent;
     transition: border-bottom 0.3s ease-in-out;
+
 }
 
 .right-tab{
@@ -266,12 +310,6 @@ footer {
     width: 50%;
     margin: 10px auto;
     opacity: 0;
-    animation: slideIn 1s forwards;
+    animation: fadeIn 1s forwards;
   }
   
-  @keyframes slideIn {
-    to {
-        opacity: 1;
-        transform: translateY(0); /* Slide down to original position */
-    }
-}
