@@ -575,12 +575,14 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 
 },{}],"iyReQ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "items", ()=>items);
 var _classesTxt = require("bundle-text:../scripts/classes.txt"); // works!
 var _classesTxtDefault = parcelHelpers.interopDefault(_classesTxt);
 const timerElement = document.getElementById("countdown");
 const drawTextElement = document.getElementById("item-text");
 const drawNumElement = document.getElementById("item-num");
-let timeLeft = 5;
+let timeLeft = 10;
 let textNum = 1;
 var items = [];
 var itemID = -1;
@@ -598,8 +600,8 @@ function startTimer() {
         if (timeLeft > 0) {
             timerElement.textContent = timeLeft + " seconds";
             timeLeft--;
-        } else if (guessedNum < 5) {
-            timeLeft = 5;
+        } else if (guessedNum < 10) {
+            timeLeft = 10;
             guessedNum++;
             var itemToDraw = getRandomItem();
             setTextItem(itemToDraw);
@@ -622,6 +624,36 @@ setTextItem(itemToDraw);
 
 },{"bundle-text:../scripts/classes.txt":"fNKGP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fNKGP":[function(require,module,exports) {
 module.exports = "angel\r\nbandage\r\nbelt\r\nbracelet\r\ncat\r\nchandelier\r\ncrown\r\ndiamond\r\ndresser\r\neyeglasses\r\nfan\r\nfeather\r\npurse\r\nhat\r\njacket\r\nlipstick\r\nnecklace\r\nshoe\r\nbowtie\r\nflip flops\r\nnail\r\nunderwear\r\nt-shirt\r\nvase\r\napple";
+
+},{}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
 
 },{}]},["da4KP","iyReQ"], "iyReQ", "parcelRequirec3ae")
 

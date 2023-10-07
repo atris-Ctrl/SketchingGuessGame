@@ -175,6 +175,12 @@ button {
   transform: translate(-50%, -50%);
 }
 
+#guessResult {
+  color: #eef2d0;
+  background-color: #ac6861;
+  margin: 3% 20%;
+}
+
 @font-face {
   font-family: Pixely;
   src: url("pixely[1].31a81b7c.ttf") format("truetype");

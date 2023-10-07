@@ -4,7 +4,7 @@ const drawNumElement = document.getElementById('item-num');
 
 import data from "bundle-text:../scripts/classes.txt" // works!
 
-let timeLeft = 5; 
+let timeLeft = 10; 
 let textNum = 1;
 var items = [];
 var itemID = -1;
@@ -30,7 +30,7 @@ function startTimer() {
         timeLeft--;
     } else {
         if(guessedNum < 5){
-            timeLeft = 5;
+            timeLeft = 10;
             guessedNum++;
             var itemToDraw = getRandomItem();
             setTextItem(itemToDraw);
@@ -59,3 +59,4 @@ var itemToDraw = getRandomItem();
 setTextItem(itemToDraw);
 
 
+export {items};

@@ -1,4 +1,4 @@
-// import * as ai from "ai.js";
+import {predictImg} from "./ai.js"
 const canvasContainer = document.getElementById('canvas-container'); 
 const canvas = document.getElementById('sketchCanvas');
 const submitBtn = document.getElementById('submitBtn');
@@ -9,14 +9,21 @@ const penSizeIndicator = document.getElementById("penSize");
 const ctx = canvas.getContext('2d');
 const clearBtn = document.getElementById("clearBtn");
 
-let mode = "pen"
+let mode = "pen";
 let drawing = false;
 let lineWidth = 5;
+var coordsXY = [];
+
+function clear(){
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    coordsXY = [];
+}
+
 
 clearBtn.addEventListener('click',()=>{
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    clear();
 })
-console.log(canvas.offsetLeft,canvas.offsetTop);
 // canvas 
 canvas.addEventListener('mouseover',(e) => {
     updatePenSizeIndicator(e.clientX , e.clientY , ctx.lineWidth);
@@ -51,7 +58,15 @@ canvas.addEventListener('mouseout',() => {
 canvas.addEventListener('mouseup', () => {
     drawing = false;
     ctx.closePath(); // Close the current path
+    // var coords = getMinBox();
+    // const imageData = ctx.getImageData(coords.min.x,coords.min.y,
+    //         coords.max.x,coords.max.y);
+    // coordsXY = [];
+    // var res = predictImg(imageData);
+    // guessResult.textContent = `AI Guess: ${res}`;
 });
+
+
 
 function drawSketch(x, y) {
     ctx.lineWidth = lineWidth;
@@ -62,16 +77,38 @@ function drawSketch(x, y) {
     ctx.moveTo(x, y);
     const offsetX = x + canvasContainer.getBoundingClientRect().left;
     const offsetY = y + canvasContainer.getBoundingClientRect().top;
+    coordsXY.push({x: x, y: y});
     updatePenSizeIndicator(offsetX, offsetY ,ctx.lineWidth);
 }
 
+
+function getMinBox(){
+    var coorX = coordsXY.map(function(coor) {return coor.x});
+    var coorY = coordsXY.map(function(coor) {return coor.y});
+    //find top left corner 
+    var min_coords = {
+     x : Math.min.apply(null, coorX),
+     y : Math.min.apply(null, coorY)
+    }
+    //find right bottom corner 
+    var max_coords = {
+     x : Math.max.apply(null, coorX),
+     y : Math.max.apply(null, coorY)
+    }
+    return {
+     min : min_coords,
+     max : max_coords
+    }
+ }
+
 submitBtn.addEventListener('click', () => {
-    const dpi = window.devicePixelRatio;
-    console.log("fnkank")
-    // const imgData = canvas.getImageData(mbb.min.x * dpi, mbb.min.y * dpi,
-						    //    (mbb.max.x - mbb.min.x) * dpi, (mbb.max.y - mbb.min.y) * dpi);
-    // console.log(imageData);
-    sendToAIService(imageData);
+    var coords = getMinBox();
+    const imageData = ctx.getImageData(coords.min.x,coords.min.y,
+            coords.max.x,coords.max.y);
+    coordsXY = [];
+    var res = predictImg(imageData);
+    guessResult.textContent = `AI Guess: ${res}`;
+    clear();
 });
 
 eraserBtn.addEventListener('click',() => {
@@ -102,20 +139,6 @@ function updatePenSizeIndicator(x,y,size){
     penSizeIndicator.style.top = `${y+size*2} px`;
     penSizeIndicator.style.display = 'block'
 }
-
-
-// ai 
-function sendToAIService(imageData) {
-    hello();
-    displayGuess("Cat");
-
-}
-
-function displayGuess(guess) {
-    guessResult.textContent = `AI Guess: ${guess}`;
-}
-
-
 
 // Get the eraser image and the slider container
 const eraserImage = document.getElementById('eraser');

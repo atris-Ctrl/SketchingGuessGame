@@ -574,7 +574,8 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"2rkkm":[function(require,module,exports) {
-// import * as ai from "ai.js";
+var _dialogueJs = require("../scripts/dialogue.js");
+// import {hello} from "./ai.js"
 const canvasContainer = document.getElementById("canvas-container");
 const canvas = document.getElementById("sketchCanvas");
 const submitBtn = document.getElementById("submitBtn");
@@ -587,8 +588,12 @@ const clearBtn = document.getElementById("clearBtn");
 let mode = "pen";
 let drawing = false;
 let lineWidth = 5;
+var coordsXY = [];
+// hello();
+(0, _dialogueJs.hell)();
 clearBtn.addEventListener("click", ()=>{
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    coordsXY = [];
 });
 console.log(canvas.offsetLeft, canvas.offsetTop);
 // canvas 
@@ -602,6 +607,7 @@ canvas.addEventListener("mousedown", (e)=>{
     ctx.globalCompositeOperation = "source-over";
     const offsetX = e.clientX - canvasContainer.getBoundingClientRect().left;
     const offsetY = e.clientY - canvasContainer.getBoundingClientRect().top;
+    console.log(coordsXY);
     drawSketch(offsetX, offsetY);
 });
 canvas.addEventListener("mousemove", (e)=>{
@@ -629,15 +635,41 @@ function drawSketch(x, y) {
     ctx.moveTo(x, y);
     const offsetX = x + canvasContainer.getBoundingClientRect().left;
     const offsetY = y + canvasContainer.getBoundingClientRect().top;
+    coordsXY.push({
+        x: x,
+        y: y
+    });
     updatePenSizeIndicator(offsetX, offsetY, ctx.lineWidth);
 }
+function getMinBox() {
+    var coorX = coordsXY.map(function(coor) {
+        return coor.x;
+    });
+    var coorY = coordsXY.map(function(coor) {
+        return coor.y;
+    });
+    //find top left corner 
+    var min_coords = {
+        x: Math.min.apply(null, coorX),
+        y: Math.min.apply(null, coorY)
+    };
+    //find right bottom corner 
+    var max_coords = {
+        x: Math.max.apply(null, coorX),
+        y: Math.max.apply(null, coorY)
+    };
+    return {
+        min: min_coords,
+        max: max_coords
+    };
+}
 submitBtn.addEventListener("click", ()=>{
-    const dpi = window.devicePixelRatio;
-    console.log("fnkank");
-    // const imgData = canvas.getImageData(mbb.min.x * dpi, mbb.min.y * dpi,
-    //    (mbb.max.x - mbb.min.x) * dpi, (mbb.max.y - mbb.min.y) * dpi);
-    // console.log(imageData);
-    sendToAIService(imageData);
+    var coords = getMinBox();
+    if (coords != {}) {
+        const imageData = ctx.getImageData(coords.min.x, coords.min.y, coords.max.x, coords.max.y);
+        coordsXY = [];
+        sendToAIService(imageData);
+    }
 });
 eraserBtn.addEventListener("click", ()=>{
     mode = "eraser";
@@ -662,9 +694,7 @@ function updatePenSizeIndicator(x, y, size) {
     penSizeIndicator.style.top = `${y + size * 2} px`;
     penSizeIndicator.style.display = "block";
 }
-// ai 
-function sendToAIService(imageData1) {
-    hello();
+function sendToAIService(imageData) {
     displayGuess("Cat");
 }
 function displayGuess(guess) {
@@ -682,6 +712,6 @@ eraserImage.addEventListener("mouseout", ()=>{
     sliderContainer.style.display = "none";
 });
 
-},{}]},["azVF9","2rkkm"], "2rkkm", "parcelRequirec3ae")
+},{"../scripts/dialogue.js":"fUDuR"}]},["azVF9","2rkkm"], "2rkkm", "parcelRequirec3ae")
 
 //# sourceMappingURL=index.4270a260.js.map

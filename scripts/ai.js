@@ -1,9 +1,12 @@
 import * as tf from '@tensorflow/tfjs';
-
+import {items} from "./timer.js";
 async function loadModel(){
-    const model = await tf.loadLayersModel("../model/model1.json");
+    let model = await tf.loadLayersModel("model.json");
     return model;
 }
+
+
+const model = loadModel();
 
 function preprocess(imgData)
 {
@@ -21,8 +24,35 @@ return tf.tidy(()=>{
 })
 }
 
-function predictImg(item, imgData){
-    const res = model.predic(imgData);
+function predictImg(imgData){
+    model.then(function (res) {
+        const prediction = res.predict(preprocess(imgData)).dataSync();
+        const argMaxIndex = tf.argMax(prediction).dataSync()[0];
+        console.log(argMaxIndex);
+        // console.log(items[argMaxIndex]);
+        console.log(prediction);
+        
+    }, function (err) {
+        console.log(err);
+    });
+    // return items[argMaxIndex];
 }
 
-const model = loadModel();
+function getMaxValueIndex(arr) {
+    if (arr.length === 0) {
+        throw new Error("Array is empty");
+    }
+
+    let maxIndex = 0;
+    let maxValue = arr[0];
+
+    for (let i = 1; i < arr.length; i++) {
+        if (arr[i] > maxValue) {
+            maxValue = arr[i];
+            maxIndex = i;
+        }
+    }
+
+    return maxIndex;
+}
+export {model, predictImg};

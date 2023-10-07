@@ -43,3 +43,7 @@ function typingEffect(){
 }
 
 typingEffect(text);
+function hell(){
+    console.log("fnjanj");
+}
+export {hell};
